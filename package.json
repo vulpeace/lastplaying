@@ -1,0 +1,13 @@
+{
+  "name": "lastplaying",
+  "version": "1.0",
+  "description": "Backend for nowplaying html widget",
+  "author": "vulpeace",
+  "main": "app.js",
+  "license": "GPL-3.0",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.21.1",
+    "dotenv": "^16.4.7"
+  }
+}
