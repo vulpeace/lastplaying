@@ -52,8 +52,8 @@ app.get('/api/recent-track', async(req, res) => {
         });
 
         const spotifyData = await spotifyResponse.json();
-        var spotifyImage = 0;
-        var spotifyExtUrl = 0;
+        var spotifyImage = null;
+        var spotifyExtUrl = null;
         if (Object.keys(spotifyData.tracks.items).length) {
             for (var i = 0; i < Object.keys(spotifyData.tracks.items).length; i++) {
                 if ((spotifyData.tracks.items[i].name === lastTrack.name) && (spotifyData.tracks.items[i].artists.find(x => x.name === lastTrack.artist.name))) {
@@ -71,7 +71,7 @@ app.get('/api/recent-track', async(req, res) => {
             artistLink: lastTrack.artist.url,
             albumCover: spotifyImage ? spotifyImage : lastTrack.image?.find(x => x.size === "large")?.["#text"],
             date: lastTrack.date ? lastTrack.date.uts : null,
-            spotifyLink: spotifyExtUrl ?  spotifyExtUrl : `https://open.spotify.com/search/${encodeURIComponent(`${lastTrack.artist.name}`)}`
+            spotifyLink: spotifyExtUrl
         });
     } catch (error) {
         console.error(error);
