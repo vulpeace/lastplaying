@@ -35,7 +35,7 @@ async function fetchSpotifyToken() {
 }
 
 app.get('/api/recent-track', async(req, res) => {
-    const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&format=json&extended=true&api_key=${process.env.LASTFM_API_KEY}&limit=1&user=${process.env.USERNAME}`;
+    const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&format=json&extended=true&api_key=${process.env.LASTFM_API_KEY}&limit=1&user=${process.env.LASTFM_USERNAME}`;
 
     try {
         const lastfmResponse = await fetch(url);
