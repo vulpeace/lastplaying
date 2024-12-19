@@ -44,7 +44,8 @@ app.get('/api/recent-track', async(req, res) => {
         const lastTrack = lastfmData.recenttracks.track[0];
 
         const token = await fetchSpotifyToken();
-        const query = encodeURIComponent(`track:${lastTrack.name} artist:${lastTrack.artist.name}`);
+        var query = encodeURIComponent(`track:${lastTrack.name} artist:${lastTrack.artist.name}`);
+        query = encodeURIComponent(query);
         const spotifyResponse = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&limit=10`, {
             headers: {
                 Authorization: 'Bearer ' + token
@@ -55,7 +56,7 @@ app.get('/api/recent-track', async(req, res) => {
         var spotifyImage = null;
         var spotifyExtUrl = null;
         if (Object.keys(spotifyData.tracks.items).length) {
-            for (var i = 0; i < Object.keys(spotifyData.tracks.items).length; i++) {
+            for (let i = 0; i < Object.keys(spotifyData.tracks.items).length; i++) {
                 if ((spotifyData.tracks.items[i].name === lastTrack.name) && (spotifyData.tracks.items[i].artists.find(x => x.name === lastTrack.artist.name))) {
                     spotifyImage = spotifyData.tracks.items[i].album.images?.find(x => x.height === 300)?.url;
                     spotifyExtUrl = spotifyData.tracks.items[i].external_urls.spotify;
