@@ -39,10 +39,14 @@ async function main() {
     var timestamp = Date.now();
 
     app.get('/api/recent-track', async(req, res) => {
-        const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&format=json&extended=true&api_key=${process.env.LASTFM_API_KEY}&limit=1&user=${process.env.LASTFM_USERNAME}`;
+        const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&limit=1&format=json&extended=true&api_key=${process.env.LASTFM_API_KEY}&user=${process.env.LASTFM_USERNAME}`;
 
         try {
             const lastfmResponse = await fetch(url);
+            if (!lastfmResponse.ok) {
+                throw new Error(`Could not fetch data from Last.fm, response: ${lastfmResponse.status}`);
+            }
+
             const lastfmData = await lastfmResponse.json();
 
             const lastTrack = lastfmData.recenttracks.track[0];
@@ -87,7 +91,7 @@ async function main() {
         } catch (error) {
             console.error(error);
             res.status(500).json({
-                error: "Failed to fetch recent track."
+                error: "Failed to fetch recent track"
             });
         }
     });

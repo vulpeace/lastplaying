@@ -2,9 +2,9 @@
   "name": "lastplaying",
   "version": "1.0",
   "description": "Backend for nowplaying html widget",
-  "author": "vulpeace",
+  "author": "vulpeace <35395586+vulpeace@users.noreply.github.com> (https://github.com/vulpeace)"
   "main": "app.js",
-  "license": "GPL-3.0",
+  "license": "GPL-3.0-or-later",
   "type": "module",
   "dependencies": {
     "express": "^4.21.1",
