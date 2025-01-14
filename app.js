@@ -48,7 +48,6 @@ async function main() {
             }
 
             const lastfmData = await lastfmResponse.json();
-
             const lastTrack = lastfmData.recenttracks.track[0];
 
             if (!token || Date.now() - timestamp > 3600000) {
@@ -56,8 +55,7 @@ async function main() {
                 token = await fetchSpotifyToken();
             }
 
-            var query = encodeURIComponent(`track:${lastTrack.name} artist:${lastTrack.artist.name}`);
-            query = encodeURIComponent(query);
+            const query = encodeURIComponent(`track:${lastTrack.name} artist:${lastTrack.artist.name}`);
             const spotifyResponse = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=track&market=US&locale=en-US&limit=10`, {
                 headers: {
                     Authorization: 'Bearer ' + token
@@ -67,6 +65,7 @@ async function main() {
             const spotifyData = await spotifyResponse.json();
             var spotifyImage = null;
             var spotifyExtUrl = null;
+
             if (Object.keys(spotifyData.tracks.items).length) {
                 for (let i = 0; i < Object.keys(spotifyData.tracks.items).length; i++) {
                     if ((spotifyData.tracks.items[i].name.localeCompare(lastTrack.name, undefined, { sensitivity: 'accent' }) === 0)
