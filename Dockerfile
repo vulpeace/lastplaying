@@ -6,6 +6,6 @@ WORKDIR /home/node/app
 COPY package.json ./
 USER node
 RUN npm install
-COPY --chown=node:node app.js .
+COPY --chown=node:node server.js .
 EXPOSE $PORT
-CMD [ "node", "app.js" ]
+CMD [ "node", "server.js" ]
